@@ -166,7 +166,6 @@
             font-size: 0.9rem;
             color: #d4af7a;
             animation: pulse-text 1.5s ease-in-out infinite 2s;
-            cursor: pointer;
         }
 
         @keyframes fadeInIntro {
@@ -325,7 +324,6 @@
             padding: 50px;
             border-radius: 20px;
             text-align: center;
-            cursor: pointer;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -521,8 +519,9 @@
 
         .reason-card {
             height: 250px;
+            width: 100%;
+            max-width: 100%;
             position: relative;
-            cursor: none !important;
             transform-style: preserve-3d;
             transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             user-select: none;
@@ -532,6 +531,18 @@
         .reason-card.flipped {
             transform: rotateY(180deg);
         }
+
+        .reason-card.last-card {
+            grid-column: 2 / 3;
+            justify-self: stretch;
+        }
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(200px, 1fr));
+            gap: 25px;
+            perspective: 1000px;
+            justify-items: stretch;
+        }   
 
         .reason-card-front,
         .reason-card-back {
@@ -678,7 +689,6 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            cursor: pointer;
             font-size: 1.5rem;
             display: flex;
             align-items: center;
@@ -722,8 +732,6 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 122, 0.2);
-            cursor: pointer;
-            group: 'gallery';
         }
 
         .gallery-item img {
@@ -824,7 +832,6 @@
             right: 0;
             color: #d4af7a;
             font-size: 2rem;
-            cursor: pointer;
             transition: all 0.3s ease;
         }
 
@@ -916,7 +923,6 @@
             font-size: 1rem;
             font-family: 'Poppins', sans-serif;
             color: #0a0a0a;
-            cursor: pointer;
             transition: all 0.4s ease;
             font-weight: 600;
             letter-spacing: 1px;
@@ -1041,7 +1047,6 @@
             font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
             font-weight: 600;
-            cursor: pointer;
             border: none;
             transition: all 0.3s ease;
             letter-spacing: 1px;
@@ -1195,7 +1200,6 @@
             border: 1px solid rgba(255, 100, 100, 0.6);
             color: #ff6464;
             border-radius: 50px;
-            cursor: pointer;
             font-family: 'Poppins', sans-serif;
             transition: all 0.3s ease;
         }
@@ -1381,24 +1385,32 @@
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
+            .container {
+                padding: 30px 14px;
+            }
+
             .intro-text {
                 font-size: 1.8rem;
+                padding: 0 10px;
             }
 
             .header h1 {
-                font-size: 2.5rem;
+                font-size: 2.4rem;
+            }
+
+            .header p {
+                font-size: 1.5rem;
             }
 
             .wish-popup {
-                padding: 30px;
+                padding: 24px;
+                width: 94%;
             }
 
-            .confirmation-popup {
-                padding: 30px;
-            }
-
+            .confirmation-popup,
             .error-popup {
-                padding: 30px;
+                padding: 24px;
+                width: 94%;
             }
 
             .timeline::before {
@@ -1414,6 +1426,16 @@
 
             .timeline-dot {
                 left: 15px;
+            }
+
+            .reasons-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .reason-card.last-card {
+                grid-column: 1 / -1;
+                justify-self: center;
+                width: min(100%, 200px);
             }
 
             .gallery {
@@ -1437,6 +1459,55 @@
 
             .countdown-title {
                 font-size: 1.5rem;
+            }
+
+            .play-btn,
+            .music-btn,
+            .wish-btn {
+                min-height: 44px;
+            }
+        }
+
+        @media (max-width: 412px) {
+            .container {
+                padding: 24px 10px;
+            }
+
+            .intro-text {
+                font-size: 1.45rem;
+                letter-spacing: 1px;
+                padding: 0 8px;
+            }
+
+            .typing-text {
+                height: 48px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1.3rem;
+            }
+
+            .intro-message,
+            .letter-envelope,
+            .voice-player,
+            .music-player,
+            .countdown-container {
+                padding: 24px 18px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .wish-popup,
+            .confirmation-popup,
+            .error-popup {
+                width: 95%;
+                padding: 20px;
             }
         }
     </style>
@@ -1608,7 +1679,7 @@
                     </div>
                     <div class="reason-card-back"></div>
                 </div>
-                <div class="reason-card" data-reason="And a thousand more reasons I can't count ♡">
+                <div class="reason-card last-card" data-reason="And a thousand more reasons I can't count ♡">
                     <div class="reason-card-front">
                         <div class="reason-card-number">X</div>
                         <div class="reason-card-hint">Click me ♡</div>
@@ -1619,7 +1690,7 @@
         </div>
 
         <!-- Voice Message -->
-        <div class="voice-section">
+        <div class="voice-section" id="voiceSection">
             <h2 class="section-title">Hear My Voice</h2>
             <div class="voice-player inactive" id="voicePlayer">
                 <div class="voice-label">Voicemail from me</div>
@@ -1685,7 +1756,7 @@
         <div class="music-section">
             <h2 class="section-title">Our Song</h2>
             <div class="music-player inactive" id="musicPlayer">
-                <div class="song-title">♪ Our Love Story ♪</div>
+                <div class="song-title">♪ Perfect ♪</div>
                 <div class="music-visualizer" id="musicVisualizer">
                     <div class="vis-bar"></div>
                     <div class="vis-bar"></div>
@@ -1798,33 +1869,45 @@
 
         console.log('✅ EmailJS initialized successfully');
 
+        // ==================== TOUCH DEVICE DETECTION ==================== 
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
         // ==================== CUSTOM CURSOR HEART ==================== 
         const customCursor = document.getElementById('customCursor');
+        const cursorGlow = document.getElementById('cursorGlow');
         let cursorX = 0;
         let cursorY = 0;
         let trailX = 0;
         let trailY = 0;
+        let cursorRAF = null;
 
-        document.addEventListener('mousemove', (e) => {
-            cursorX = e.clientX;
-            cursorY = e.clientY;
-        });
+        if (isTouchDevice) {
+            customCursor.style.display = 'none';
+            cursorGlow.style.display = 'none';
+            document.documentElement.style.cursor = 'auto';
+            document.body.style.cursor = 'auto';
+            document.querySelectorAll('*').forEach(el => { el.style.cursor = 'auto'; });
+        } else {
+            document.addEventListener('mousemove', (e) => {
+                cursorX = e.clientX;
+                cursorY = e.clientY;
+            });
 
-        function updateCursorPosition() {
-            trailX += (cursorX - trailX) * 0.2;
-            trailY += (cursorY - trailY) * 0.2;
+            function updateCursorPosition() {
+                trailX = cursorX;
+                trailY = cursorY;
             customCursor.style.left = trailX + 'px';
             customCursor.style.top = trailY + 'px';
-            requestAnimationFrame(updateCursorPosition);
-        }
-        updateCursorPosition();
+            cursorRAF = requestAnimationFrame(updateCursorPosition);
+            }
+            updateCursorPosition();
 
-        // ==================== CURSOR GLOW ==================== 
-        const cursorGlow = document.getElementById('cursorGlow');
-        document.addEventListener('mousemove', (e) => {
-            cursorGlow.style.left = (e.clientX - 50) + 'px';
-            cursorGlow.style.top = (e.clientY - 50) + 'px';
-        });
+            // ==================== CURSOR GLOW ==================== 
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = (e.clientX - 50) + 'px';
+                cursorGlow.style.top = (e.clientY - 50) + 'px';
+            });
+        }
 
         // ==================== SHOOTING STARS ==================== 
         function createShootingStar() {
@@ -1967,11 +2050,13 @@
         // ==================== PARALLAX EFFECT ==================== 
         const parallaxBg = document.querySelector('.parallax-bg');
 
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth - e.clientX * 2) / 100;
-            const y = (window.innerHeight - e.clientY * 2) / 100;
-            parallaxBg.style.transform = `translate(${x}px, ${y}px)`;
-        });
+        if (!isTouchDevice) {
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth - e.clientX * 2) / 100;
+                const y = (window.innerHeight - e.clientY * 2) / 100;
+                parallaxBg.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        }
 
         // ==================== REASONS I LOVE YOU - CLICK TO FLIP ==================== 
         const reasonCards = document.querySelectorAll('.reason-card');
@@ -2004,7 +2089,6 @@
         galleryItems.forEach((item) => {
             item.addEventListener('click', () => {
                 const img = item.querySelector('img');
-                const label = item.querySelector('.gallery-label').textContent;
                 const caption = item.querySelector('.gallery-caption').textContent;
                 
                 lightboxImg.src = img.src;
@@ -2033,46 +2117,46 @@
         });
 
         // ==================== VOICE MESSAGE ==================== 
+        const voiceSection = document.getElementById('voiceSection');
         const voiceMessage = document.getElementById('voiceMessage');
         const voicePlayBtn = document.getElementById('voicePlayBtn');
         const voiceDuration = document.getElementById('voiceDuration');
         const voicePlayer = document.getElementById('voicePlayer');
         let isVoicePlaying = false;
 
-        voiceMessage.src = CONFIG.voiceUrl;
+        if (!CONFIG.voiceUrl || CONFIG.voiceUrl.trim() === '') {
+            voiceSection.style.display = 'none';
+        } else {
+            voiceMessage.src = CONFIG.voiceUrl;
 
-        voicePlayBtn.addEventListener('click', () => {
-            if (!CONFIG.voiceUrl || CONFIG.voiceUrl === '') {
-                alert('Voice message URL not configured');
-                return;
-            }
+            voicePlayBtn.addEventListener('click', () => {
+                if (isVoicePlaying) {
+                    voiceMessage.pause();
+                    voicePlayBtn.textContent = '▶';
+                    voicePlayer.classList.add('inactive');
+                    isVoicePlaying = false;
+                } else {
+                    voiceMessage.play();
+                    voicePlayBtn.textContent = '⏸';
+                    voicePlayer.classList.remove('inactive');
+                    isVoicePlaying = true;
+                }
+            });
 
-            if (isVoicePlaying) {
-                voiceMessage.pause();
+            voiceMessage.addEventListener('ended', () => {
                 voicePlayBtn.textContent = '▶';
                 voicePlayer.classList.add('inactive');
                 isVoicePlaying = false;
-            } else {
-                voiceMessage.play();
-                voicePlayBtn.textContent = '⏸';
-                voicePlayer.classList.remove('inactive');
-                isVoicePlaying = true;
-            }
-        });
+            });
 
-        voiceMessage.addEventListener('ended', () => {
-            voicePlayBtn.textContent = '▶';
-            voicePlayer.classList.add('inactive');
-            isVoicePlaying = false;
-        });
-
-        voiceMessage.addEventListener('timeupdate', () => {
-            if (voiceMessage.duration) {
-                const mins = Math.floor(voiceMessage.currentTime / 60);
-                const secs = Math.floor(voiceMessage.currentTime % 60);
-                voiceDuration.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-            }
-        });
+            voiceMessage.addEventListener('timeupdate', () => {
+                if (voiceMessage.duration) {
+                    const mins = Math.floor(voiceMessage.currentTime / 60);
+                    const secs = Math.floor(voiceMessage.currentTime % 60);
+                    voiceDuration.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                }
+            });
+        }
 
         // ==================== MUSIC PLAYER ==================== 
         const backgroundMusic = document.getElementById('backgroundMusic');
@@ -2311,8 +2395,13 @@
                 const msg = document.createElement('div');
                 msg.className = 'floating-message';
                 msg.textContent = floatingMessages[Math.floor(Math.random() * floatingMessages.length)];
+
+                const safeTop = 100;
+                const safeBottom = window.innerHeight - 100;
+                const randomY = Math.random() * (safeBottom - safeTop) + safeTop;
+
                 msg.style.left = Math.random() * window.innerWidth + 'px';
-                msg.style.top = Math.random() * window.innerHeight + 'px';
+                msg.style.top = randomY + 'px';
                 document.body.appendChild(msg);
 
                 setTimeout(() => msg.remove(), 4000);
