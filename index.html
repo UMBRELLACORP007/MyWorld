@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday my dear!</title>
+    <title>Happy Birthday My Dear!</title>
     <meta property="og:title" content="💌 A little something for you">
     <meta property="og:description" content="Open this, it's just for you ♡">
     <meta property="og:image" content="preview.svg">
@@ -510,11 +510,16 @@
             animation: slideUpFade 1s ease-out 2s forwards;
         }
 
+        .reason-card.last-card {
+            grid-column: 2 / 3;
+            justify-self: stretch;
+        }
         .reasons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, minmax(200px, 1fr));
             gap: 25px;
             perspective: 1000px;
+            justify-items: stretch;
         }
 
         .reason-card {
@@ -530,18 +535,6 @@
 
         .reason-card.flipped {
             transform: rotateY(180deg);
-        }
-
-        .reason-card.last-card {
-            grid-column: 2 / 3;
-            justify-self: stretch;
-        }
-        .reasons-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(200px, 1fr));
-            gap: 25px;
-            perspective: 1000px;
-            justify-items: stretch;
         }   
 
         .reason-card-front,
@@ -1433,9 +1426,9 @@
             }
 
             .reason-card.last-card {
-                grid-column: 1 / -1;
-                justify-self: center;
-                width: min(100%, 200px);
+                grid-column: auto;
+                justify-self: stretch;
+                width: 100%;
             }
 
             .gallery {
@@ -1483,6 +1476,15 @@
                 height: 48px;
             }
 
+            .reasons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reason-card.last-card {
+                grid-column: auto;
+                justify-self: stretch;
+                width: 100%;
+            }
             .header h1 {
                 font-size: 2rem;
             }
@@ -1508,6 +1510,18 @@
             .error-popup {
                 width: 95%;
                 padding: 20px;
+            }
+        }
+        /* Force native cursor on touch devices */
+            body.touch-device,
+            body.touch-device * {
+            cursor: auto !important;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor,
+            .cursor-glow {
+                display: none !important;
             }
         }
     </style>
@@ -1756,7 +1770,7 @@
         <div class="music-section">
             <h2 class="section-title">Our Song</h2>
             <div class="music-player inactive" id="musicPlayer">
-                <div class="song-title">♪ Perfect ♪</div>
+                <div class="song-title">♪ Our love story ♪</div>
                 <div class="music-visualizer" id="musicVisualizer">
                     <div class="vis-bar"></div>
                     <div class="vis-bar"></div>
@@ -1860,7 +1874,7 @@
         const CONFIG = {
             girlfriendName: "Sweety",
             songUrl: "perfect.mp3",
-            voiceUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            voiceUrl: "voice.mp3",
             emailjsServiceId: "service_s677uh9",
             emailjsTemplateId: "template_9jybrvp",
             typingText: "I made something for you...",
@@ -1871,6 +1885,9 @@
 
         // ==================== TOUCH DEVICE DETECTION ==================== 
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        if (isTouchDevice) {
+            document.body.classList.add('touch-device');
+        }
 
         // ==================== CUSTOM CURSOR HEART ==================== 
         const customCursor = document.getElementById('customCursor');
@@ -1887,6 +1904,11 @@
             document.documentElement.style.cursor = 'auto';
             document.body.style.cursor = 'auto';
             document.querySelectorAll('*').forEach(el => { el.style.cursor = 'auto'; });
+            document.addEventListener('mousemove', (e) => { e.stopPropagation(); }, true);
+            document.addEventListener('touchstart', () => {
+                customCursor.style.display = 'none';
+                cursorGlow.style.display = 'none';
+            }, true);
         } else {
             document.addEventListener('mousemove', (e) => {
                 cursorX = e.clientX;
