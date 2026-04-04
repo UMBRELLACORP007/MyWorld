@@ -1913,12 +1913,16 @@
             const greetingEl = document.getElementById('greeting');
             let greeting = '';
             
-            if (hour < 12) {
+            if (hour >= 0 && hour < 6) {
+                greeting = `sending you a calm night, ${CONFIG.girlfriendName} 🌙`;
+            } else if (hour < 12) {
                 greeting = `Good morning, ${CONFIG.girlfriendName} ☀️`;
             } else if (hour < 18) {
                 greeting = `Good afternoon, ${CONFIG.girlfriendName} 🌤️`;
-            } else {
+            } else if (hour < 21) {
                 greeting = `Good evening, ${CONFIG.girlfriendName} 🌙`;
+            } else {
+                greeting = `Sending you a calm night!, ${CONFIG.girlfriendName} 🌙`;
             }
             
             greetingEl.textContent = greeting;
