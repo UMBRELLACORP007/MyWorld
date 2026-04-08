@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,28 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="preview.svg">
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap"
+        rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
+        :root {
+            --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-emphasis: cubic-bezier(0.2, 0.8, 0.2, 1);
+            --dur-fast: 220ms;
+            --dur-med: 380ms;
+            --dur-slow: 560ms;
+            --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.28);
+            --shadow-glow-pink: 0 12px 34px rgba(244, 166, 166, 0.16);
+            --shadow-glow-gold: 0 12px 34px rgba(212, 175, 122, 0.18);
+            --blur-soft: blur(12px);
+        }
+
         * {
             margin: 0;
-            padding: 0; 
+            padding: 0;
             box-sizing: border-box;
             cursor: none !important;
         }
@@ -29,6 +45,7 @@
             overflow-x: hidden;
             min-height: 100vh;
             cursor: none;
+            line-height: 1.5;
         }
 
         /* ==================== CUSTOM CURSOR HEART ==================== */
@@ -49,14 +66,18 @@
         }
 
         @keyframes heartbeatPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translate(-50%, -50%) scale(1);
                 filter: drop-shadow(0 0 6px rgba(244, 166, 166, 0.6));
             }
+
             25% {
                 transform: translate(-50%, -50%) scale(1.2);
                 filter: drop-shadow(0 0 12px rgba(244, 166, 166, 1));
             }
+
             50% {
                 transform: translate(-50%, -50%) scale(1);
                 filter: drop-shadow(0 0 6px rgba(244, 166, 166, 0.6));
@@ -80,6 +101,7 @@
                 opacity: 1;
                 transform: translateX(0) translateY(0);
             }
+
             100% {
                 opacity: 0;
                 transform: translateX(-500px) translateY(500px);
@@ -157,8 +179,16 @@
         }
 
         @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
+
+            0%,
+            49% {
+                opacity: 1;
+            }
+
+            50%,
+            100% {
+                opacity: 0;
+            }
         }
 
         .tap-continue {
@@ -169,18 +199,36 @@
         }
 
         @keyframes fadeInIntro {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeOutIntro {
-            from { opacity: 1; }
-            to { opacity: 0; visibility: hidden; }
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
         }
 
         @keyframes pulse-text {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         /* ==================== MAIN CONTAINER ==================== */
@@ -196,8 +244,13 @@
         }
 
         @keyframes fadeInMain {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         /* ==================== PARALLAX BACKGROUND ==================== */
@@ -207,7 +260,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(212, 175, 122, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(244, 166, 166, 0.08) 0%, transparent 50%);
             pointer-events: none;
@@ -269,12 +322,15 @@
                 opacity: 0;
                 transform: translateY(0) translateX(0);
             }
+
             10% {
                 opacity: 1;
             }
+
             90% {
                 opacity: 1;
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(-100px) translateX(-30px);
@@ -284,19 +340,22 @@
         /* ==================== INTRO MESSAGE ==================== */
         .intro-message {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             border: 1px solid rgba(212, 175, 122, 0.2);
             padding: 40px;
             border-radius: 20px;
             margin-bottom: 60px;
             opacity: 0;
-            animation: slideUpFade 1s ease-out 0.7s forwards;
-            transition: all 0.3s ease;
+            animation: slideUpFade 1s var(--ease-soft) 0.7s forwards;
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), background-color var(--dur-med) var(--ease-soft), border-color var(--dur-med) var(--ease-soft);
+            box-shadow: var(--shadow-soft);
         }
 
         .intro-message:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(212, 175, 122, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 36px rgba(212, 175, 122, 0.14);
         }
 
         .intro-message p {
@@ -319,14 +378,15 @@
 
         .letter-envelope {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             border: 1px solid rgba(244, 166, 166, 0.3);
             padding: 50px;
             border-radius: 20px;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), background-color var(--dur-med) var(--ease-soft), border-color var(--dur-med) var(--ease-soft);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-soft);
         }
 
         .letter-envelope::before {
@@ -337,13 +397,14 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(244, 166, 166, 0.1), transparent);
-            transition: left 0.6s ease;
+            transition: left var(--dur-slow) var(--ease-soft);
         }
 
         .letter-envelope:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(244, 166, 166, 0.5);
-            box-shadow: 0 8px 32px rgba(244, 166, 166, 0.1);
+            box-shadow: var(--shadow-glow-pink);
+            transform: translateY(-5px);
         }
 
         .letter-envelope:hover::before {
@@ -390,8 +451,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         /* ==================== MEMORY TIMELINE ==================== */
@@ -432,10 +500,21 @@
             animation: slideUpFade 0.8s ease-out forwards;
         }
 
-        .timeline-item:nth-child(1) { animation-delay: 1.2s; }
-        .timeline-item:nth-child(2) { animation-delay: 1.4s; }
-        .timeline-item:nth-child(3) { animation-delay: 1.6s; }
-        .timeline-item:nth-child(4) { animation-delay: 1.8s; }
+        .timeline-item:nth-child(1) {
+            animation-delay: 1.2s;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 1.4s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 1.6s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 1.8s;
+        }
 
         .timeline-item:nth-child(odd) {
             text-align: right;
@@ -458,27 +537,29 @@
             top: 20px;
             border: 3px solid #0a0a0a;
             box-shadow: 0 0 0 3px #d4af7a;
-            transition: all 0.3s ease;
+            transition: transform var(--dur-fast) var(--ease-emphasis), box-shadow var(--dur-fast) var(--ease-soft);
         }
 
         .timeline-item:hover .timeline-dot {
             box-shadow: 0 0 20px #d4af7a, 0 0 0 3px #d4af7a;
-            transform: translateX(-50%) scale(1.2);
+            transform: translateX(-50%) scale(1.12);
         }
 
         .timeline-content {
             background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             border: 1px solid rgba(212, 175, 122, 0.15);
             padding: 25px 30px;
             border-radius: 15px;
-            transition: all 0.3s ease;
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), background-color var(--dur-med) var(--ease-soft), border-color var(--dur-med) var(--ease-soft);
+            box-shadow: var(--shadow-soft);
         }
 
         .timeline-content:hover {
             background: rgba(255, 255, 255, 0.07);
             border-color: rgba(212, 175, 122, 0.4);
-            box-shadow: 0 8px 24px rgba(212, 175, 122, 0.1);
+            box-shadow: var(--shadow-glow-gold);
+            transform: translateY(-4px);
         }
 
         .timeline-date {
@@ -514,6 +595,7 @@
             grid-column: 2 / 3;
             justify-self: stretch;
         }
+
         .reasons-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(200px, 1fr));
@@ -528,14 +610,14 @@
             max-width: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: transform var(--dur-slow) var(--ease-emphasis);
             user-select: none;
             -webkit-user-select: none;
         }
 
         .reason-card.flipped {
             transform: rotateY(180deg);
-        }   
+        }
 
         .reason-card-front,
         .reason-card-back {
@@ -549,10 +631,17 @@
             border-radius: 15px;
             border: 1px solid rgba(244, 166, 166, 0.3);
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             padding: 20px;
             text-align: center;
             flex-direction: column;
+            box-shadow: var(--shadow-soft);
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), border-color var(--dur-med) var(--ease-soft), background-color var(--dur-med) var(--ease-soft);
+        }
+
+        .reason-card:hover .reason-card-front {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow-pink);
         }
 
         .reason-card-front {
@@ -576,11 +665,14 @@
         }
 
         @keyframes pulseHint {
-            0%, 100% { 
+
+            0%,
+            100% {
                 opacity: 0.6;
                 transform: scale(1);
             }
-            50% { 
+
+            50% {
                 opacity: 1;
                 transform: scale(1.05);
             }
@@ -605,11 +697,18 @@
 
         .voice-player {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             border: 1px solid rgba(244, 166, 166, 0.3);
             padding: 40px;
             border-radius: 20px;
             text-align: center;
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), border-color var(--dur-med) var(--ease-soft), background-color var(--dur-med) var(--ease-soft);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .voice-player:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow-pink);
         }
 
         .voice-label {
@@ -648,15 +747,50 @@
             animation: wave 0.6s ease-in-out infinite;
         }
 
-        .wave-bar:nth-child(1) { height: 20%; animation-delay: 0s; }
-        .wave-bar:nth-child(2) { height: 40%; animation-delay: 0.1s; }
-        .wave-bar:nth-child(3) { height: 60%; animation-delay: 0.2s; }
-        .wave-bar:nth-child(4) { height: 80%; animation-delay: 0.3s; }
-        .wave-bar:nth-child(5) { height: 100%; animation-delay: 0.4s; }
-        .wave-bar:nth-child(6) { height: 80%; animation-delay: 0.5s; }
-        .wave-bar:nth-child(7) { height: 60%; animation-delay: 0.6s; }
-        .wave-bar:nth-child(8) { height: 40%; animation-delay: 0.7s; }
-        .wave-bar:nth-child(9) { height: 20%; animation-delay: 0.8s; }
+        .wave-bar:nth-child(1) {
+            height: 20%;
+            animation-delay: 0s;
+        }
+
+        .wave-bar:nth-child(2) {
+            height: 40%;
+            animation-delay: 0.1s;
+        }
+
+        .wave-bar:nth-child(3) {
+            height: 60%;
+            animation-delay: 0.2s;
+        }
+
+        .wave-bar:nth-child(4) {
+            height: 80%;
+            animation-delay: 0.3s;
+        }
+
+        .wave-bar:nth-child(5) {
+            height: 100%;
+            animation-delay: 0.4s;
+        }
+
+        .wave-bar:nth-child(6) {
+            height: 80%;
+            animation-delay: 0.5s;
+        }
+
+        .wave-bar:nth-child(7) {
+            height: 60%;
+            animation-delay: 0.6s;
+        }
+
+        .wave-bar:nth-child(8) {
+            height: 40%;
+            animation-delay: 0.7s;
+        }
+
+        .wave-bar:nth-child(9) {
+            height: 20%;
+            animation-delay: 0.8s;
+        }
 
         .voice-player.inactive .wave-bar {
             height: 30% !important;
@@ -665,8 +799,15 @@
         }
 
         @keyframes wave {
-            0%, 100% { height: 30%; }
-            50% { height: 100%; }
+
+            0%,
+            100% {
+                height: 30%;
+            }
+
+            50% {
+                height: 100%;
+            }
         }
 
         .voice-controls {
@@ -686,13 +827,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: transform var(--dur-fast) var(--ease-emphasis), box-shadow var(--dur-fast) var(--ease-soft), filter var(--dur-fast) var(--ease-soft);
             box-shadow: 0 10px 30px rgba(244, 166, 166, 0.3);
         }
 
         .play-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(244, 166, 166, 0.5);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 14px 36px rgba(244, 166, 166, 0.4);
+            filter: brightness(1.02);
+        }
+
+        .play-btn:active {
+            transform: translateY(0) scale(0.98);
         }
 
         .voice-duration {
@@ -723,15 +869,17 @@
             border-radius: 15px;
             aspect-ratio: 1;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             border: 1px solid rgba(212, 175, 122, 0.2);
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), border-color var(--dur-med) var(--ease-soft);
+            box-shadow: var(--shadow-soft);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+            transition: transform var(--dur-slow) var(--ease-soft), filter var(--dur-slow) var(--ease-soft);
             filter: blur(5px);
         }
 
@@ -739,8 +887,14 @@
             filter: blur(0px);
         }
 
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 175, 122, 0.35);
+            box-shadow: var(--shadow-glow-gold);
+        }
+
         .gallery-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.06);
         }
 
         .gallery-overlay {
@@ -751,7 +905,7 @@
             height: 100%;
             background: linear-gradient(135deg, rgba(244, 166, 166, 0.2), rgba(212, 175, 122, 0.2));
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity var(--dur-med) var(--ease-soft);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -841,17 +995,20 @@
 
         .music-player {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             border: 1px solid rgba(212, 175, 122, 0.2);
             padding: 40px;
             border-radius: 20px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), background-color var(--dur-med) var(--ease-soft), border-color var(--dur-med) var(--ease-soft);
+            box-shadow: var(--shadow-soft);
         }
 
         .music-player:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(212, 175, 122, 0.3);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow-gold);
         }
 
         .song-title {
@@ -877,17 +1034,60 @@
             animation: visualize 0.5s ease-in-out infinite;
         }
 
-        .vis-bar:nth-child(1) { height: 20%; animation-delay: 0s; }
-        .vis-bar:nth-child(2) { height: 35%; animation-delay: 0.05s; }
-        .vis-bar:nth-child(3) { height: 50%; animation-delay: 0.1s; }
-        .vis-bar:nth-child(4) { height: 65%; animation-delay: 0.15s; }
-        .vis-bar:nth-child(5) { height: 80%; animation-delay: 0.2s; }
-        .vis-bar:nth-child(6) { height: 100%; animation-delay: 0.25s; }
-        .vis-bar:nth-child(7) { height: 80%; animation-delay: 0.3s; }
-        .vis-bar:nth-child(8) { height: 65%; animation-delay: 0.35s; }
-        .vis-bar:nth-child(9) { height: 50%; animation-delay: 0.4s; }
-        .vis-bar:nth-child(10) { height: 35%; animation-delay: 0.45s; }
-        .vis-bar:nth-child(11) { height: 20%; animation-delay: 0.5s; }
+        .vis-bar:nth-child(1) {
+            height: 20%;
+            animation-delay: 0s;
+        }
+
+        .vis-bar:nth-child(2) {
+            height: 35%;
+            animation-delay: 0.05s;
+        }
+
+        .vis-bar:nth-child(3) {
+            height: 50%;
+            animation-delay: 0.1s;
+        }
+
+        .vis-bar:nth-child(4) {
+            height: 65%;
+            animation-delay: 0.15s;
+        }
+
+        .vis-bar:nth-child(5) {
+            height: 80%;
+            animation-delay: 0.2s;
+        }
+
+        .vis-bar:nth-child(6) {
+            height: 100%;
+            animation-delay: 0.25s;
+        }
+
+        .vis-bar:nth-child(7) {
+            height: 80%;
+            animation-delay: 0.3s;
+        }
+
+        .vis-bar:nth-child(8) {
+            height: 65%;
+            animation-delay: 0.35s;
+        }
+
+        .vis-bar:nth-child(9) {
+            height: 50%;
+            animation-delay: 0.4s;
+        }
+
+        .vis-bar:nth-child(10) {
+            height: 35%;
+            animation-delay: 0.45s;
+        }
+
+        .vis-bar:nth-child(11) {
+            height: 20%;
+            animation-delay: 0.5s;
+        }
 
         .music-player.inactive .vis-bar {
             height: 25% !important;
@@ -896,8 +1096,15 @@
         }
 
         @keyframes visualize {
-            0%, 100% { height: 25%; }
-            50% { height: 100%; }
+
+            0%,
+            100% {
+                height: 25%;
+            }
+
+            50% {
+                height: 100%;
+            }
         }
 
         .music-controls {
@@ -916,7 +1123,7 @@
             font-size: 1rem;
             font-family: 'Poppins', sans-serif;
             color: #0a0a0a;
-            transition: all 0.4s ease;
+            transition: transform var(--dur-fast) var(--ease-emphasis), box-shadow var(--dur-fast) var(--ease-soft), filter var(--dur-fast) var(--ease-soft), background var(--dur-med) var(--ease-soft);
             font-weight: 600;
             letter-spacing: 1px;
             box-shadow: 0 10px 30px rgba(212, 175, 122, 0.3);
@@ -932,12 +1139,17 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
+            transition: left var(--dur-slow) var(--ease-soft);
         }
 
         .music-btn:hover {
-            box-shadow: 0 15px 40px rgba(212, 175, 122, 0.5);
-            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(212, 175, 122, 0.42);
+            transform: translateY(-2px) scale(1.01);
+            filter: brightness(1.02);
+        }
+
+        .music-btn:active {
+            transform: translateY(0) scale(0.985);
         }
 
         .music-btn:hover::before {
@@ -1014,7 +1226,7 @@
             margin-bottom: 20px;
             min-height: 120px;
             resize: vertical;
-            transition: all 0.3s ease;
+            transition: border-color var(--dur-fast) var(--ease-soft), box-shadow var(--dur-fast) var(--ease-soft), background-color var(--dur-fast) var(--ease-soft), transform var(--dur-fast) var(--ease-soft);
         }
 
         .wish-input:focus {
@@ -1022,6 +1234,7 @@
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(244, 166, 166, 0.6);
             box-shadow: 0 0 30px rgba(244, 166, 166, 0.2);
+            transform: translateY(-1px);
         }
 
         .wish-input::placeholder {
@@ -1041,7 +1254,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             border: none;
-            transition: all 0.3s ease;
+            transition: transform var(--dur-fast) var(--ease-emphasis), box-shadow var(--dur-fast) var(--ease-soft), filter var(--dur-fast) var(--ease-soft), background-color var(--dur-fast) var(--ease-soft), border-color var(--dur-fast) var(--ease-soft);
             letter-spacing: 1px;
         }
 
@@ -1061,12 +1274,17 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
+            transition: left var(--dur-slow) var(--ease-soft);
         }
 
         .wish-submit:hover {
-            box-shadow: 0 15px 40px rgba(212, 175, 122, 0.5);
-            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(212, 175, 122, 0.42);
+            transform: translateY(-2px) scale(1.01);
+            filter: brightness(1.02);
+        }
+
+        .wish-submit:active {
+            transform: translateY(0) scale(0.985);
         }
 
         .wish-submit:hover::before {
@@ -1134,11 +1352,14 @@
         }
 
         @keyframes glowPulse {
-            0%, 100% { 
+
+            0%,
+            100% {
                 opacity: 0.6;
                 filter: drop-shadow(0 0 10px #f4a6a6);
             }
-            50% { 
+
+            50% {
                 opacity: 1;
                 filter: drop-shadow(0 0 30px #f4a6a6);
             }
@@ -1259,17 +1480,19 @@
 
         .countdown-container {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: var(--blur-soft);
             border: 1px solid rgba(244, 166, 166, 0.3);
             padding: 50px 40px;
             border-radius: 20px;
-            transition: all 0.3s ease;
+            transition: transform var(--dur-med) var(--ease-smooth), box-shadow var(--dur-med) var(--ease-smooth), background-color var(--dur-med) var(--ease-soft), border-color var(--dur-med) var(--ease-soft);
+            box-shadow: var(--shadow-soft);
         }
 
         .countdown-container:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(244, 166, 166, 0.5);
-            box-shadow: 0 8px 32px rgba(244, 166, 166, 0.1);
+            box-shadow: var(--shadow-glow-pink);
+            transform: translateY(-4px);
         }
 
         .countdown-title {
@@ -1300,13 +1523,14 @@
             border: 1px solid rgba(244, 166, 166, 0.4);
             padding: 20px;
             border-radius: 15px;
-            transition: all 0.3s ease;
+            transition: transform var(--dur-fast) var(--ease-emphasis), box-shadow var(--dur-fast) var(--ease-soft), background-color var(--dur-fast) var(--ease-soft), border-color var(--dur-fast) var(--ease-soft);
         }
 
         .countdown-unit:hover {
             background: rgba(244, 166, 166, 0.15);
             border-color: rgba(244, 166, 166, 0.6);
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(244, 166, 166, 0.16);
         }
 
         .countdown-number {
@@ -1363,8 +1587,9 @@
         @keyframes slideUpFade {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(24px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1372,8 +1597,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         /* ==================== RESPONSIVE ==================== */
@@ -1485,6 +1715,7 @@
                 justify-self: stretch;
                 width: 100%;
             }
+
             .header h1 {
                 font-size: 2rem;
             }
@@ -1512,20 +1743,32 @@
                 padding: 20px;
             }
         }
+
         /* Force native cursor on touch devices */
-            body.touch-device,
-            body.touch-device * {
+        body.touch-device,
+        body.touch-device * {
             cursor: auto !important;
         }
 
         @media (hover: none) and (pointer: coarse) {
+
             .custom-cursor,
             .cursor-glow {
                 display: none !important;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
+
 <body>
     <!-- Cursor Glow -->
     <div class="cursor-glow" id="cursorGlow"></div>
@@ -1562,7 +1805,7 @@
         <!-- Intro Message -->
         <div class="intro-message">
             <p>I just felt like making something for you…
-            like I don't always say things properly, so I thought I'll just put it here.</p>
+                like I don't always say things properly, so I thought I'll just put it here.</p>
             <p>It's just small things… stuff about us, what I feel, and yeah… things I don't really say out loud.
                 It's not anything big honestly… just wanted you to see it and maybe feel it a little.</p>
         </div>
@@ -1575,869 +1818,885 @@
                 <div class="letter-content" id="letterContent">
                     <p>My love,</p>
 
-            <p>I don't know where to start from. There are a thousand things I want to say to you today, but words never seem enough.</p>
-            <p>You've made my life so much better just by being in it. Every laugh we share, every little moment we talk, every time you think about me or check on me… it all means everything.</p>
-            <p>On your birthday, I want you to know that I see you. I see your loyalty, the way you care, the way you stay even when things aren't easy… and that means more to me than I can explain.</p>
-            <p>Here's to another year of making memories together, of being crazy and free, of supporting each other's dreams, and of figuring everything out side by side.</p>
-            <p>You deserve all the happiness in the world. And I'll always try to be someone who makes you feel safe, happy, and loved.</p>
-            <div class="letter-signature">Forever yours ♡</div>
-            </div>
-        </div>
-
-        <!-- Timeline -->
-        <div class="timeline-section">
-            <h2 class="section-title">Our Story</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">The Beginning</div>
-                        <div class="timeline-title">The Day We Met</div>
-                        <div class="timeline-desc">It was so confusing at first. I didn't knew who actually I was talking to!! We started talking to each other, gave time to each other and time went on with it..</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Growing Closer</div>
-                        <div class="timeline-title">Our First Real Conversation</div>
-                        <div class="timeline-desc">Hours passed like minutes. We talked about ourselfs, our life and School life. That's when I knew this wasn't just attraction. This was connection. This was something more than friendship.</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">The Turning Point</div>
-                        <div class="timeline-title">When I Realized I Loved You (17/02/2026)</div>
-                        <div class="timeline-desc">It wasn't one moment. It was every moment. But if I had to choose, it was when you shared me something about other guys and I felt jealous about it! I really didn't knew why I was jealous but that was the moment I realized how much you meant to me.</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Forever</div>
-                        <div class="timeline-title">Every Day Since</div>
-                        <div class="timeline-desc">Every single day with you is a gift I never take for granted. Through adventures and quiet nights, through challenges and victories... you're the person I want by my side.</div>
-                    </div>
+                    <p>I don't know where to start from. There are a thousand things I want to say to you today, but
+                        words never seem enough.</p>
+                    <p>You've made my life so much better just by being in it. Every laugh we share, every little moment
+                        we talk, every time you think about me or check on me… it all means everything.</p>
+                    <p>On your birthday, I want you to know that I see you. I see your loyalty, the way you care, the
+                        way you stay even when things aren't easy… and that means more to me than I can explain.</p>
+                    <p>Here's to another year of making memories together, of being crazy and free, of supporting each
+                        other's dreams, and of figuring everything out side by side.</p>
+                    <p>You deserve all the happiness in the world. And I'll always try to be someone who makes you feel
+                        safe, happy, and loved.</p>
+                    <div class="letter-signature">Forever yours ♡</div>
                 </div>
             </div>
-        </div>
 
-        <!-- Reasons I Love You -->
-        <div class="reasons-section">
-            <h2 class="section-title">Reasons I Love You</h2>
-            <div class="reasons-grid">
-                <div class="reason-card" data-reason="Your heartfelt laugh lights up my entire world ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">I</div>
-                        <div class="reason-card-hint">Click me ♡</div>
+            <!-- Timeline -->
+            <div class="timeline-section">
+                <h2 class="section-title">Our Story</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">The Beginning</div>
+                            <div class="timeline-title">The Day We Met</div>
+                            <div class="timeline-desc">It was so confusing at first. I didn't knew who actually I was
+                                talking to!! We started talking to each other, gave time to each other and time went on
+                                with it..</div>
+                        </div>
                     </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="The way you care for people even when it costs you ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">II</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="Your beautiful mind that questions and grows every day ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">III</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="The way you make me feel safe just by being with me ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">IV</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="Your loyalty means more than you'll ever know ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">V</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="The way you listen makes me feel like I actually matter ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">VI</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="Your strength through every challenge inspires me ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">VII</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="The little things you do that show you understand me ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">VIII</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card" data-reason="Your authenticity in a world of fakeness ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">IX</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-                <div class="reason-card last-card" data-reason="And a thousand more reasons I can't count ♡">
-                    <div class="reason-card-front">
-                        <div class="reason-card-number">X</div>
-                        <div class="reason-card-hint">Click me ♡</div>
-                    </div>
-                    <div class="reason-card-back"></div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Voice Message -->
-        <div class="voice-section" id="voiceSection">
-            <h2 class="section-title">Hear My Voice</h2>
-            <div class="voice-player inactive" id="voicePlayer">
-                <div class="voice-label">Voicemail from me</div>
-                <div class="voice-icon">🎙️</div>
-                <div class="voice-title">A message just for you</div>
-                <div class="waveform" id="waveform">
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                </div>
-                <div class="voice-controls">
-                    <button class="play-btn" id="voicePlayBtn">▶</button>
-                    <div class="voice-duration" id="voiceDuration">0:00</div>
-                </div>
-                <audio id="voiceMessage" class="hidden-audio"></audio>
-            </div>
-        </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Growing Closer</div>
+                            <div class="timeline-title">Our First Real Conversation</div>
+                            <div class="timeline-desc">Hours passed like minutes. We talked about ourselfs, our life and
+                                School life. That's when I knew this wasn't just attraction. This was connection. This
+                                was something more than friendship.</div>
+                        </div>
+                    </div>
 
-        <!-- Photo Gallery -->
-        <div class="gallery-section">
-            <h2 class="section-title">Moments I love of you</h2>
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="01.jpg" alt="Memory 1">
-                    <div class="gallery-overlay">
-                        <div class="gallery-label">Beauty</div>
-                        <div class="gallery-caption">Your smile is my favorite</div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">The Turning Point</div>
+                            <div class="timeline-title">When I Realized I Loved You (17/02/2026)</div>
+                            <div class="timeline-desc">It wasn't one moment. It was every moment. But if I had to
+                                choose, it was when you shared me something about other guys and I felt jealous about
+                                it! I really didn't knew why I was jealous but that was the moment I realized how much
+                                you meant to me.</div>
+                        </div>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="02.jpg" alt="Memory 2">
-                    <div class="gallery-overlay">
-                        <div class="gallery-label">Love</div>
-                        <div class="gallery-caption">This cutness, forever</div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="03.jpg" alt="Memory 3">
-                    <div class="gallery-overlay">
-                        <div class="gallery-label">Forever</div>
-                        <div class="gallery-caption">Just us against the world</div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Forever</div>
+                            <div class="timeline-title">Every Day Since</div>
+                            <div class="timeline-desc">Every single day with you is a gift I never take for granted.
+                                Through adventures and quiet nights, through challenges and victories... you're the
+                                person I want by my side.</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Lightbox -->
-        <div class="lightbox" id="lightbox">
-            <div class="lightbox-content">
-                <div class="lightbox-close" id="lightboxClose">&times;</div>
-                <img id="lightboxImg" class="lightbox-img" src="" alt="">
-                <div class="lightbox-caption" id="lightboxCaption"></div>
-            </div>
-        </div>
-
-        <!-- Music Player -->
-        <div class="music-section">
-            <h2 class="section-title">Our Song</h2>
-            <div class="music-player inactive" id="musicPlayer">
-                <div class="song-title">♪ Our love story ♪</div>
-                <div class="music-visualizer" id="musicVisualizer">
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
+            <!-- Reasons I Love You -->
+            <div class="reasons-section">
+                <h2 class="section-title">Reasons I Love You</h2>
+                <div class="reasons-grid">
+                    <div class="reason-card" data-reason="Your heartfelt laugh lights up my entire world ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">I</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="The way you care for people even when it costs you ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">II</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="Your beautiful mind that questions and grows every day ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">III</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="The way you make me feel safe just by being with me ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">IV</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="Your loyalty means more than you'll ever know ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">V</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="The way you listen makes me feel like I actually matter ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">VI</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="Your strength through every challenge inspires me ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">VII</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="The little things you do that show you understand me ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">VIII</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card" data-reason="Your authenticity in a world of fakeness ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">IX</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
+                    <div class="reason-card last-card" data-reason="And a thousand more reasons I can't count ♡">
+                        <div class="reason-card-front">
+                            <div class="reason-card-number">X</div>
+                            <div class="reason-card-hint">Click me ♡</div>
+                        </div>
+                        <div class="reason-card-back"></div>
+                    </div>
                 </div>
-                <div class="music-controls">
-                    <button class="music-btn" id="musicBtn">▶ Play</button>
-                    <div class="music-time" id="musicTime">0:00 / 1:23</div>
-                </div>
-                <audio id="backgroundMusic" class="hidden-audio"></audio>
             </div>
-        </div>
 
-        <!-- Wish Section -->
-        <div style="text-align: center; margin-top: 60px; margin-bottom: 40px; opacity: 0; animation: slideUpFade 1s ease-out 1.9s forwards;">
-            <button class="music-btn" id="surpriseBtn" style="opacity: 0.8;">✨ Make a Wish</button>
-        </div>
-
-        <!-- Countdown Section -->
-        <div class="countdown-section">
-            <div class="countdown-container">
-                <h2 class="countdown-title">Countdown to Your Birthday</h2>
-                <p class="countdown-subtitle">Until we celebrate you again ♡</p>
-                <div class="countdown-units">
-                    <div class="countdown-unit">
-                        <div class="countdown-number" id="days">0</div>
-                        <div class="countdown-label">Days</div>
+            <!-- Voice Message -->
+            <div class="voice-section" id="voiceSection">
+                <h2 class="section-title">Hear My Voice</h2>
+                <div class="voice-player inactive" id="voicePlayer">
+                    <div class="voice-label">Voicemail from me</div>
+                    <div class="voice-icon">🎙️</div>
+                    <div class="voice-title">A message just for you</div>
+                    <div class="waveform" id="waveform">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
                     </div>
-                    <div class="countdown-unit">
-                        <div class="countdown-number" id="hours">0</div>
-                        <div class="countdown-label">Hours</div>
+                    <div class="voice-controls">
+                        <button class="play-btn" id="voicePlayBtn">▶</button>
+                        <div class="voice-duration" id="voiceDuration">0:00</div>
                     </div>
-                    <div class="countdown-unit">
-                        <div class="countdown-number" id="minutes">0</div>
-                        <div class="countdown-label">Minutes</div>
-                    </div>
-                    <div class="countdown-unit">
-                        <div class="countdown-number" id="seconds">0</div>
-                        <div class="countdown-label">Seconds</div>
-                    </div>
+                    <audio id="voiceMessage" class="hidden-audio"></audio>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Wish Popup -->
-    <div class="wish-overlay" id="wishOverlay">
-        <div class="wish-popup">
-            <div class="wish-title">Make a Wish</div>
-            <div class="wish-subtitle">Tell me what your heart desires</div>
-            
-            <textarea class="wish-input" id="wishInput" placeholder="Tell me your wish..."></textarea>
+            <!-- Photo Gallery -->
+            <div class="gallery-section">
+                <h2 class="section-title">Moments I love of you</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="01.jpg" alt="Memory 1">
+                        <div class="gallery-overlay">
+                            <div class="gallery-label">Beauty</div>
+                            <div class="gallery-caption">Your smile is my favorite</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="02.jpg" alt="Memory 2">
+                        <div class="gallery-overlay">
+                            <div class="gallery-label">Love</div>
+                            <div class="gallery-caption">This cutness, forever</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="03.jpg" alt="Memory 3">
+                        <div class="gallery-overlay">
+                            <div class="gallery-label">Forever</div>
+                            <div class="gallery-caption">Just us against the world</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="wish-buttons">
-                <button class="wish-btn wish-submit" id="wishSubmit">Send Wish ♡</button>
-                <button class="wish-btn wish-cancel" id="wishCancel">No wish 💔</button>
+            <!-- Lightbox -->
+            <div class="lightbox" id="lightbox">
+                <div class="lightbox-content">
+                    <div class="lightbox-close" id="lightboxClose">&times;</div>
+                    <img id="lightboxImg" class="lightbox-img" src="" alt="">
+                    <div class="lightbox-caption" id="lightboxCaption"></div>
+                </div>
+            </div>
+
+            <!-- Music Player -->
+            <div class="music-section">
+                <h2 class="section-title">Our Song</h2>
+                <div class="music-player inactive" id="musicPlayer">
+                    <div class="song-title">♪ Our love story ♪</div>
+                    <div class="music-visualizer" id="musicVisualizer">
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                        <div class="vis-bar"></div>
+                    </div>
+                    <div class="music-controls">
+                        <button class="music-btn" id="musicBtn">▶ Play</button>
+                        <div class="music-time" id="musicTime">0:00 / 1:23</div>
+                    </div>
+                    <audio id="backgroundMusic" class="hidden-audio"></audio>
+                </div>
+            </div>
+
+            <!-- Wish Section -->
+            <div
+                style="text-align: center; margin-top: 60px; margin-bottom: 40px; opacity: 0; animation: slideUpFade 1s ease-out 1.9s forwards;">
+                <button class="music-btn" id="surpriseBtn" style="opacity: 0.8;">✨ Make a Wish</button>
+            </div>
+
+            <!-- Countdown Section -->
+            <div class="countdown-section">
+                <div class="countdown-container">
+                    <h2 class="countdown-title">Countdown to Your Birthday</h2>
+                    <p class="countdown-subtitle">Until we celebrate you again ♡</p>
+                    <div class="countdown-units">
+                        <div class="countdown-unit">
+                            <div class="countdown-number" id="days">0</div>
+                            <div class="countdown-label">Days</div>
+                        </div>
+                        <div class="countdown-unit">
+                            <div class="countdown-number" id="hours">0</div>
+                            <div class="countdown-label">Hours</div>
+                        </div>
+                        <div class="countdown-unit">
+                            <div class="countdown-number" id="minutes">0</div>
+                            <div class="countdown-label">Minutes</div>
+                        </div>
+                        <div class="countdown-unit">
+                            <div class="countdown-number" id="seconds">0</div>
+                            <div class="countdown-label">Seconds</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Confirmation Popup -->
-    <div class="confirmation-popup" id="confirmationPopup">
-        <div class="confirmation-icon">💕</div>
-        <div class="confirmation-text">I got it…</div>
-        <div class="confirmation-subtext">and I'm smiling already ♡</div>
-    </div>
+        <!-- Wish Popup -->
+        <div class="wish-overlay" id="wishOverlay">
+            <div class="wish-popup">
+                <div class="wish-title">Make a Wish</div>
+                <div class="wish-subtitle">Tell me what your heart desires</div>
 
-    <!-- Error Popup -->
-    <div class="error-popup" id="errorPopup">
-        <div class="error-icon">⚠️</div>
-        <div class="error-text">Oops!</div>
-        <div class="error-subtext" id="errorMessage">Something went wrong. Please try again.</div>
-        <button class="error-btn" id="errorBtn">Try Again</button>
-    </div>
+                <textarea class="wish-input" id="wishInput" placeholder="Tell me your wish..."></textarea>
 
-    <!-- Surprise Overlay -->
-    <div class="surprise-overlay" id="surpriseOverlay">
-        <div class="surprise-content">
-            <div class="glow-heart">💕</div>
-            <div class="surprise-message">I love you more than words can say</div>
-            <div class="surprise-subtext">Happy Birthday to my greatest love ♡</div>
+                <div class="wish-buttons">
+                    <button class="wish-btn wish-submit" id="wishSubmit">Send Wish ♡</button>
+                    <button class="wish-btn wish-cancel" id="wishCancel">No wish 💔</button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Secret Message -->
-    <div class="secret-message" id="secretMessage"></div>
+        <!-- Confirmation Popup -->
+        <div class="confirmation-popup" id="confirmationPopup">
+            <div class="confirmation-icon">💕</div>
+            <div class="confirmation-text">I got it…</div>
+            <div class="confirmation-subtext">and I'm smiling already ♡</div>
+        </div>
 
-    <script>
-        // ==================== EMAILJS INITIALIZATION ==================== 
-        emailjs.init('SGjGhtkbxDbyoRknT');
+        <!-- Error Popup -->
+        <div class="error-popup" id="errorPopup">
+            <div class="error-icon">⚠️</div>
+            <div class="error-text">Oops!</div>
+            <div class="error-subtext" id="errorMessage">Something went wrong. Please try again.</div>
+            <button class="error-btn" id="errorBtn">Try Again</button>
+        </div>
 
-        // ==================== CONFIG ==================== 
-        const CONFIG = {
-            girlfriendName: "Sweety",
-            songUrl: "perfect.mp3",
-            voiceUrl: "00.mp3",
-            emailjsServiceId: "service_s677uh9",
-            emailjsTemplateId: "template_9jybrvp",
-            typingText: "I made something for you...",
-            typingDelay: 80
-        };
+        <!-- Surprise Overlay -->
+        <div class="surprise-overlay" id="surpriseOverlay">
+            <div class="surprise-content">
+                <div class="glow-heart">💕</div>
+                <div class="surprise-message">I love you more than words can say</div>
+                <div class="surprise-subtext">Happy Birthday to my greatest love ♡</div>
+            </div>
+        </div>
 
-        console.log('✅ EmailJS initialized successfully');
+        <!-- Secret Message -->
+        <div class="secret-message" id="secretMessage"></div>
 
-        // ==================== TOUCH DEVICE DETECTION ==================== 
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        if (isTouchDevice) {
-            document.body.classList.add('touch-device');
-        }
+        <script>
+            // ==================== EMAILJS INITIALIZATION ==================== 
+            emailjs.init('SGjGhtkbxDbyoRknT');
 
-        // ==================== CUSTOM CURSOR HEART ==================== 
-        const customCursor = document.getElementById('customCursor');
-        const cursorGlow = document.getElementById('cursorGlow');
-        let cursorX = 0;
-        let cursorY = 0;
-        let trailX = 0;
-        let trailY = 0;
-        let cursorRAF = null;
+            // ==================== CONFIG ==================== 
+            const CONFIG = {
+                girlfriendName: "Sweety",
+                songUrl: "perfect.mp3",
+                voiceUrl: "00.mp3",
+                emailjsServiceId: "service_s677uh9",
+                emailjsTemplateId: "template_9jybrvp",
+                typingText: "I made something for you...",
+                typingDelay: 80
+            };
 
-        if (isTouchDevice) {
-            customCursor.style.display = 'none';
-            cursorGlow.style.display = 'none';
-            document.documentElement.style.cursor = 'auto';
-            document.body.style.cursor = 'auto';
-            document.querySelectorAll('*').forEach(el => { el.style.cursor = 'auto'; });
-            document.addEventListener('mousemove', (e) => { e.stopPropagation(); }, true);
-            document.addEventListener('touchstart', () => {
+            console.log('✅ EmailJS initialized successfully');
+
+            // ==================== TOUCH DEVICE DETECTION ==================== 
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            if (isTouchDevice) {
+                document.body.classList.add('touch-device');
+            }
+
+            // ==================== CUSTOM CURSOR HEART ==================== 
+            const customCursor = document.getElementById('customCursor');
+            const cursorGlow = document.getElementById('cursorGlow');
+            let cursorX = 0;
+            let cursorY = 0;
+            let trailX = 0;
+            let trailY = 0;
+            let cursorRAF = null;
+
+            if (isTouchDevice) {
                 customCursor.style.display = 'none';
                 cursorGlow.style.display = 'none';
-            }, true);
-        } else {
-            document.addEventListener('mousemove', (e) => {
-                cursorX = e.clientX;
-                cursorY = e.clientY;
-            });
-
-            function updateCursorPosition() {
-                trailX = cursorX;
-                trailY = cursorY;
-            customCursor.style.left = trailX + 'px';
-            customCursor.style.top = trailY + 'px';
-            cursorRAF = requestAnimationFrame(updateCursorPosition);
-            }
-            updateCursorPosition();
-
-            // ==================== CURSOR GLOW ==================== 
-            document.addEventListener('mousemove', (e) => {
-                cursorGlow.style.left = (e.clientX - 50) + 'px';
-                cursorGlow.style.top = (e.clientY - 50) + 'px';
-            });
-        }
-
-        // ==================== SHOOTING STARS ==================== 
-        function createShootingStar() {
-            if (Math.random() > 0.98) {
-                const star = document.createElement('div');
-                star.className = 'shooting-star';
-                star.style.left = Math.random() * window.innerWidth + 'px';
-                star.style.top = Math.random() * window.innerHeight + 'px';
-                document.body.appendChild(star);
-                
-                setTimeout(() => {
-                    star.classList.add('animate');
-                }, 10);
-                
-                setTimeout(() => {
-                    star.remove();
-                }, 2000);
-            }
-        }
-        setInterval(createShootingStar, 200);
-
-        // ==================== TYPING EFFECT WITH PROPER TIMING ==================== 
-        const typingContent = document.getElementById('typingContent');
-        const fullText = CONFIG.typingText;
-        let typingIndex = 0;
-        let typingFinished = false;
-
-        function typeText() {
-            if (typingIndex < fullText.length) {
-                typingContent.textContent += fullText.charAt(typingIndex);
-                typingIndex++;
-                setTimeout(typeText, CONFIG.typingDelay);
+                document.documentElement.style.cursor = 'auto';
+                document.body.style.cursor = 'auto';
+                document.querySelectorAll('*').forEach(el => { el.style.cursor = 'auto'; });
+                document.addEventListener('mousemove', (e) => { e.stopPropagation(); }, true);
+                document.addEventListener('touchstart', () => {
+                    customCursor.style.display = 'none';
+                    cursorGlow.style.display = 'none';
+                }, true);
             } else {
-                typingFinished = true;
-                triggerIntroFadeOut();
-            }
-        }
+                document.addEventListener('mousemove', (e) => {
+                    cursorX = e.clientX;
+                    cursorY = e.clientY;
+                });
 
-        setTimeout(typeText, 500);
-
-        // ==================== INTRO SCREEN WITH DYNAMIC TIMING ==================== 
-        const introScreen = document.getElementById('introScreen');
-        const mainContainer = document.getElementById('mainContainer');
-        const tapContinue = document.getElementById('tapContinue');
-
-        function triggerIntroFadeOut() {
-            console.log('✅ Typing complete! Fading out intro screen...');
-            introScreen.classList.add('fade-out');
-            mainContainer.classList.add('fade-in');
-            
-            setTimeout(() => {
-                if (introScreen) {
-                    introScreen.classList.add('hidden');
+                function updateCursorPosition() {
+                    trailX = cursorX;
+                    trailY = cursorY;
+                    customCursor.style.left = trailX + 'px';
+                    customCursor.style.top = trailY + 'px';
+                    cursorRAF = requestAnimationFrame(updateCursorPosition);
                 }
-                triggerConfetti();
-            }, 800);
-        }
+                updateCursorPosition();
 
-        // Allow manual skip
-        tapContinue.addEventListener('click', () => {
-            if (!typingFinished) {
-                typingContent.textContent = fullText;
-                typingFinished = true;
+                // ==================== CURSOR GLOW ==================== 
+                document.addEventListener('mousemove', (e) => {
+                    cursorGlow.style.left = (e.clientX - 50) + 'px';
+                    cursorGlow.style.top = (e.clientY - 50) + 'px';
+                });
             }
-            introScreen.style.animation = 'fadeOutIntro 0.8s ease-out forwards';
-            setTimeout(() => {
-                introScreen.classList.add('hidden');
+
+            // ==================== SHOOTING STARS ==================== 
+            function createShootingStar() {
+                if (Math.random() > 0.98) {
+                    const star = document.createElement('div');
+                    star.className = 'shooting-star';
+                    star.style.left = Math.random() * window.innerWidth + 'px';
+                    star.style.top = Math.random() * window.innerHeight + 'px';
+                    document.body.appendChild(star);
+
+                    setTimeout(() => {
+                        star.classList.add('animate');
+                    }, 10);
+
+                    setTimeout(() => {
+                        star.remove();
+                    }, 2000);
+                }
+            }
+            setInterval(createShootingStar, 200);
+
+            // ==================== TYPING EFFECT WITH PROPER TIMING ==================== 
+            const typingContent = document.getElementById('typingContent');
+            const fullText = CONFIG.typingText;
+            let typingIndex = 0;
+            let typingFinished = false;
+
+            function typeText() {
+                if (typingIndex < fullText.length) {
+                    typingContent.textContent += fullText.charAt(typingIndex);
+                    typingIndex++;
+                    setTimeout(typeText, CONFIG.typingDelay);
+                } else {
+                    typingFinished = true;
+                    triggerIntroFadeOut();
+                }
+            }
+
+            setTimeout(typeText, 500);
+
+            // ==================== INTRO SCREEN WITH DYNAMIC TIMING ==================== 
+            const introScreen = document.getElementById('introScreen');
+            const mainContainer = document.getElementById('mainContainer');
+            const tapContinue = document.getElementById('tapContinue');
+
+            function triggerIntroFadeOut() {
+                console.log('✅ Typing complete! Fading out intro screen...');
+                introScreen.classList.add('fade-out');
                 mainContainer.classList.add('fade-in');
-                triggerConfetti();
-            }, 800);
-        });
 
-        // ==================== CONFETTI ==================== 
-        let confettiTriggered = false;
-        function triggerConfetti() {
-            if (confettiTriggered) return;
-            confettiTriggered = true;
-            
-            console.log('🎉 Confetti burst triggered!');
-            if (typeof confetti !== 'undefined') {
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#f4a6a6', '#d4af7a', '#e8dcc4']
+                setTimeout(() => {
+                    if (introScreen) {
+                        introScreen.classList.add('hidden');
+                    }
+                    triggerConfetti();
+                }, 800);
+            }
+
+            // Allow manual skip
+            tapContinue.addEventListener('click', () => {
+                if (!typingFinished) {
+                    typingContent.textContent = fullText;
+                    typingFinished = true;
+                }
+                introScreen.style.animation = 'fadeOutIntro 0.8s ease-out forwards';
+                setTimeout(() => {
+                    introScreen.classList.add('hidden');
+                    mainContainer.classList.add('fade-in');
+                    triggerConfetti();
+                }, 800);
+            });
+
+            // ==================== CONFETTI ==================== 
+            let confettiTriggered = false;
+            function triggerConfetti() {
+                if (confettiTriggered) return;
+                confettiTriggered = true;
+
+                console.log('🎉 Confetti burst triggered!');
+                if (typeof confetti !== 'undefined') {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#f4a6a6', '#d4af7a', '#e8dcc4']
+                    });
+                }
+            }
+
+            // ==================== DYNAMIC GREETING ==================== 
+            function updateGreeting() {
+                const hour = new Date().getHours();
+                const greetingEl = document.getElementById('greeting');
+                let greeting = '';
+
+                if (hour >= 0 && hour < 6) {
+                    greeting = `sending you a calm night, ${CONFIG.girlfriendName} 🌙`;
+                } else if (hour < 12) {
+                    greeting = `Good morning, ${CONFIG.girlfriendName} ☀️`;
+                } else if (hour < 18) {
+                    greeting = `Good afternoon, ${CONFIG.girlfriendName} 🌤️`;
+                } else if (hour < 21) {
+                    greeting = `Good evening, ${CONFIG.girlfriendName} 🌙`;
+                } else {
+                    greeting = `Sending you a calm night!, ${CONFIG.girlfriendName} 🌙`;
+                }
+
+                greetingEl.textContent = greeting;
+            }
+
+            updateGreeting();
+
+            // ==================== COUNTDOWN TIMER ==================== 
+            function updateCountdown() {
+                const now = new Date();
+                const currentYear = now.getFullYear();
+
+                let birthdayDate = new Date(currentYear, 3, 20); // April 20
+
+                if (now > birthdayDate) {
+                    birthdayDate = new Date(currentYear + 1, 3, 20);
+                }
+
+                const timeRemaining = birthdayDate - now;
+
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // ==================== PARALLAX EFFECT ==================== 
+            const parallaxBg = document.querySelector('.parallax-bg');
+
+            if (!isTouchDevice) {
+                document.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth - e.clientX * 2) / 100;
+                    const y = (window.innerHeight - e.clientY * 2) / 100;
+                    parallaxBg.style.transform = `translate(${x}px, ${y}px)`;
                 });
             }
-        }
 
-        // ==================== DYNAMIC GREETING ==================== 
-        function updateGreeting() {
-            const hour = new Date().getHours();
-            const greetingEl = document.getElementById('greeting');
-            let greeting = '';
-            
-            if (hour >= 0 && hour < 6) {
-                greeting = `sending you a calm night, ${CONFIG.girlfriendName} 🌙`;
-            } else if (hour < 12) {
-                greeting = `Good morning, ${CONFIG.girlfriendName} ☀️`;
-            } else if (hour < 18) {
-                greeting = `Good afternoon, ${CONFIG.girlfriendName} 🌤️`;
-            } else if (hour < 21) {
-                greeting = `Good evening, ${CONFIG.girlfriendName} 🌙`;
-            } else {
-                greeting = `Sending you a calm night!, ${CONFIG.girlfriendName} 🌙`;
-            }
-            
-            greetingEl.textContent = greeting;
-        }
+            // ==================== REASONS I LOVE YOU - CLICK TO FLIP ==================== 
+            const reasonCards = document.querySelectorAll('.reason-card');
+            reasonCards.forEach(card => {
+                const reason = card.getAttribute('data-reason');
+                const backDiv = card.querySelector('.reason-card-back');
+                backDiv.textContent = reason;
 
-        updateGreeting();
-
-        // ==================== COUNTDOWN TIMER ==================== 
-        function updateCountdown() {
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            
-            let birthdayDate = new Date(currentYear, 3, 20); // April 20
-            
-            if (now > birthdayDate) {
-                birthdayDate = new Date(currentYear + 1, 3, 20);
-            }
-
-            const timeRemaining = birthdayDate - now;
-
-            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        // ==================== PARALLAX EFFECT ==================== 
-        const parallaxBg = document.querySelector('.parallax-bg');
-
-        if (!isTouchDevice) {
-            document.addEventListener('mousemove', (e) => {
-                const x = (window.innerWidth - e.clientX * 2) / 100;
-                const y = (window.innerHeight - e.clientY * 2) / 100;
-                parallaxBg.style.transform = `translate(${x}px, ${y}px)`;
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    card.classList.toggle('flipped');
+                });
             });
-        }
 
-        // ==================== REASONS I LOVE YOU - CLICK TO FLIP ==================== 
-        const reasonCards = document.querySelectorAll('.reason-card');
-        reasonCards.forEach(card => {
-            const reason = card.getAttribute('data-reason');
-            const backDiv = card.querySelector('.reason-card-back');
-            backDiv.textContent = reason;
+            // ==================== LOVE LETTER ==================== 
+            const letterEnvelope = document.getElementById('letterEnvelope');
+            const letterContent = document.getElementById('letterContent');
 
-            card.addEventListener('click', (e) => {
-                e.preventDefault();
-                card.classList.toggle('flipped');
+            letterEnvelope.addEventListener('click', () => {
+                letterContent.classList.toggle('show');
             });
-        });
 
-        // ==================== LOVE LETTER ==================== 
-        const letterEnvelope = document.getElementById('letterEnvelope');
-        const letterContent = document.getElementById('letterContent');
+            // ==================== GALLERY LIGHTBOX ==================== 
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxClose = document.getElementById('lightboxClose');
 
-        letterEnvelope.addEventListener('click', () => {
-            letterContent.classList.toggle('show');
-        });
+            galleryItems.forEach((item) => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const caption = item.querySelector('.gallery-caption').textContent;
 
-        // ==================== GALLERY LIGHTBOX ==================== 
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxCaption = document.getElementById('lightboxCaption');
-        const lightboxClose = document.getElementById('lightboxClose');
+                    lightboxImg.src = img.src;
+                    lightboxCaption.textContent = caption;
+                    lightbox.classList.add('show');
+                });
 
-        galleryItems.forEach((item) => {
-            item.addEventListener('click', () => {
                 const img = item.querySelector('img');
-                const caption = item.querySelector('.gallery-caption').textContent;
-                
-                lightboxImg.src = img.src;
-                lightboxCaption.textContent = caption;
-                lightbox.classList.add('show');
+                if (img.complete) {
+                    item.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        item.classList.add('loaded');
+                    });
+                }
             });
 
-            const img = item.querySelector('img');
-            if (img.complete) {
-                item.classList.add('loaded');
-            } else {
-                img.addEventListener('load', () => {
-                    item.classList.add('loaded');
-                });
-            }
-        });
-
-        lightboxClose.addEventListener('click', () => {
-            lightbox.classList.remove('show');
-        });
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
+            lightboxClose.addEventListener('click', () => {
                 lightbox.classList.remove('show');
-            }
-        });
+            });
 
-        // ==================== VOICE MESSAGE ==================== 
-        const voiceSection = document.getElementById('voiceSection');
-        const voiceMessage = document.getElementById('voiceMessage');
-        const voicePlayBtn = document.getElementById('voicePlayBtn');
-        const voiceDuration = document.getElementById('voiceDuration');
-        const voicePlayer = document.getElementById('voicePlayer');
-        let isVoicePlaying = false;
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('show');
+                }
+            });
 
-        if (!CONFIG.voiceUrl || CONFIG.voiceUrl.trim() === '') {
-            voiceSection.style.display = 'none';
-        } else {
-            voiceMessage.src = CONFIG.voiceUrl;
+            // ==================== VOICE MESSAGE ==================== 
+            const voiceSection = document.getElementById('voiceSection');
+            const voiceMessage = document.getElementById('voiceMessage');
+            const voicePlayBtn = document.getElementById('voicePlayBtn');
+            const voiceDuration = document.getElementById('voiceDuration');
+            const voicePlayer = document.getElementById('voicePlayer');
+            let isVoicePlaying = false;
 
-            voicePlayBtn.addEventListener('click', () => {
-                if (isVoicePlaying) {
-                    voiceMessage.pause();
+            if (!CONFIG.voiceUrl || CONFIG.voiceUrl.trim() === '') {
+                voiceSection.style.display = 'none';
+            } else {
+                voiceMessage.src = CONFIG.voiceUrl;
+
+                voicePlayBtn.addEventListener('click', () => {
+                    if (isVoicePlaying) {
+                        voiceMessage.pause();
+                        voicePlayBtn.textContent = '▶';
+                        voicePlayer.classList.add('inactive');
+                        isVoicePlaying = false;
+                    } else {
+                        voiceMessage.play();
+                        voicePlayBtn.textContent = '⏸';
+                        voicePlayer.classList.remove('inactive');
+                        isVoicePlaying = true;
+                    }
+                });
+
+                voiceMessage.addEventListener('ended', () => {
                     voicePlayBtn.textContent = '▶';
                     voicePlayer.classList.add('inactive');
                     isVoicePlaying = false;
-                } else {
-                    voiceMessage.play();
-                    voicePlayBtn.textContent = '⏸';
-                    voicePlayer.classList.remove('inactive');
-                    isVoicePlaying = true;
-                }
-            });
+                });
 
-            voiceMessage.addEventListener('ended', () => {
-                voicePlayBtn.textContent = '▶';
-                voicePlayer.classList.add('inactive');
-                isVoicePlaying = false;
-            });
-
-            voiceMessage.addEventListener('timeupdate', () => {
-                if (voiceMessage.duration) {
-                    const mins = Math.floor(voiceMessage.currentTime / 60);
-                    const secs = Math.floor(voiceMessage.currentTime % 60);
-                    voiceDuration.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-                }
-            });
-        }
-
-        // ==================== MUSIC PLAYER ==================== 
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const musicBtn = document.getElementById('musicBtn');
-        const musicTime = document.getElementById('musicTime');
-        const musicPlayer = document.getElementById('musicPlayer');
-        let isPlaying = false;
-
-        backgroundMusic.src = CONFIG.songUrl;
-        backgroundMusic.style.opacity = '0';
-        backgroundMusic.addEventListener('play', () => {
-            backgroundMusic.style.transition = 'opacity 1s ease-in';
-            backgroundMusic.style.opacity = '1';
-        });
-
-        musicBtn.addEventListener('click', () => {
-            if (!CONFIG.songUrl || CONFIG.songUrl === '') {
-                alert('Song URL not configured');
-                return;
+                voiceMessage.addEventListener('timeupdate', () => {
+                    if (voiceMessage.duration) {
+                        const mins = Math.floor(voiceMessage.currentTime / 60);
+                        const secs = Math.floor(voiceMessage.currentTime % 60);
+                        voiceDuration.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                    }
+                });
             }
 
-            if (isPlaying) {
-                backgroundMusic.pause();
+            // ==================== MUSIC PLAYER ==================== 
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            const musicBtn = document.getElementById('musicBtn');
+            const musicTime = document.getElementById('musicTime');
+            const musicPlayer = document.getElementById('musicPlayer');
+            let isPlaying = false;
+
+            backgroundMusic.src = CONFIG.songUrl;
+            backgroundMusic.style.opacity = '0';
+            backgroundMusic.addEventListener('play', () => {
+                backgroundMusic.style.transition = 'opacity 1s ease-in';
+                backgroundMusic.style.opacity = '1';
+            });
+
+            musicBtn.addEventListener('click', () => {
+                if (!CONFIG.songUrl || CONFIG.songUrl === '') {
+                    alert('Song URL not configured');
+                    return;
+                }
+
+                if (isPlaying) {
+                    backgroundMusic.pause();
+                    musicBtn.textContent = '▶ Play';
+                    musicBtn.classList.remove('playing');
+                    musicPlayer.classList.add('inactive');
+                    isPlaying = false;
+                } else {
+                    backgroundMusic.play();
+                    musicBtn.textContent = '⏸ Pause';
+                    musicBtn.classList.add('playing');
+                    musicPlayer.classList.remove('inactive');
+                    isPlaying = true;
+                }
+            });
+
+            backgroundMusic.addEventListener('timeupdate', () => {
+                if (backgroundMusic.duration) {
+                    const currentMins = Math.floor(backgroundMusic.currentTime / 60);
+                    const currentSecs = Math.floor(backgroundMusic.currentTime % 60);
+                    const durationMins = Math.floor(backgroundMusic.duration / 60);
+                    const durationSecs = Math.floor(backgroundMusic.duration % 60);
+                    musicTime.textContent = `${currentMins}:${currentSecs.toString().padStart(2, '0')} / ${durationMins}:${durationSecs.toString().padStart(2, '0')}`;
+                }
+            });
+
+            backgroundMusic.addEventListener('ended', () => {
                 musicBtn.textContent = '▶ Play';
                 musicBtn.classList.remove('playing');
                 musicPlayer.classList.add('inactive');
                 isPlaying = false;
-            } else {
-                backgroundMusic.play();
-                musicBtn.textContent = '⏸ Pause';
-                musicBtn.classList.add('playing');
-                musicPlayer.classList.remove('inactive');
-                isPlaying = true;
-            }
-        });
+            });
 
-        backgroundMusic.addEventListener('timeupdate', () => {
-            if (backgroundMusic.duration) {
-                const currentMins = Math.floor(backgroundMusic.currentTime / 60);
-                const currentSecs = Math.floor(backgroundMusic.currentTime % 60);
-                const durationMins = Math.floor(backgroundMusic.duration / 60);
-                const durationSecs = Math.floor(backgroundMusic.duration % 60);
-                musicTime.textContent = `${currentMins}:${currentSecs.toString().padStart(2, '0')} / ${durationMins}:${durationSecs.toString().padStart(2, '0')}`;
-            }
-        });
-
-        backgroundMusic.addEventListener('ended', () => {
-            musicBtn.textContent = '▶ Play';
-            musicBtn.classList.remove('playing');
-            musicPlayer.classList.add('inactive');
-            isPlaying = false;
-        });
-
-        // Lower volume on surprise
-        const surpriseOverlay = document.getElementById('surpriseOverlay');
-        const observerSurprise = new MutationObserver(() => {
-            if (surpriseOverlay.classList.contains('show')) {
-                backgroundMusic.volume = 0.3;
-            } else {
-                backgroundMusic.volume = 1;
-            }
-        });
-        observerSurprise.observe(surpriseOverlay, { attributes: true });
-
-        // ==================== WISH POPUP ==================== 
-        const wishOverlay = document.getElementById('wishOverlay');
-        const wishInput = document.getElementById('wishInput');
-        const wishSubmit = document.getElementById('wishSubmit');
-        const wishCancel = document.getElementById('wishCancel');
-        const surpriseBtn = document.getElementById('surpriseBtn');
-        const confirmationPopup = document.getElementById('confirmationPopup');
-        const errorPopup = document.getElementById('errorPopup');
-        const errorMessage = document.getElementById('errorMessage');
-        const errorBtn = document.getElementById('errorBtn');
-
-        // ==================== SINGLE CLICK TO OPEN WISH POPUP ==================== 
-        surpriseBtn.addEventListener('click', () => {
-            console.log('✨ Make a Wish button clicked - Opening popup');
-            wishOverlay.classList.add('show');
-        });
-
-        wishCancel.addEventListener('click', () => {
-            wishOverlay.classList.remove('show');
-            wishInput.value = '';
-        });
-
-        wishOverlay.addEventListener('click', (e) => {
-            if (e.target === wishOverlay) {
-                wishOverlay.classList.remove('show');
-                wishInput.value = '';
-            }
-        });
-
-        // ==================== SEND WISH VIA EMAILJS ==================== 
-        wishSubmit.addEventListener('click', async () => {
-            const message = wishInput.value.trim();
-            
-            if (!message) {
-                showError('Please write your wish first!');
-                console.warn('⚠️ Wish input is empty');
-                return;
-            }
-
-            // Disable submit button while sending
-            wishSubmit.disabled = true;
-            wishSubmit.textContent = 'Sending...';
-
-            try {
-                console.log('📤 Sending wish via EmailJS...');
-                console.log('Service ID:', CONFIG.emailjsServiceId);
-                console.log('Template ID:', CONFIG.emailjsTemplateId);
-                console.log('Message:', message);
-
-                const response = await emailjs.send(
-                    CONFIG.emailjsServiceId,
-                    CONFIG.emailjsTemplateId,
-                    {
-                        message: message,
-                        from_name: CONFIG.girlfriendName,
-                        to_email: 'user@example.com'
-                    }
-                );
-
-                console.log('✅ Success! Email sent successfully');
-                console.log('Response:', response);
-
-                showConfirmation();
-                wishOverlay.classList.remove('show');
-                wishInput.value = '';
-
-            } catch (error) {
-                console.error('❌ Error sending wish:', error);
-                showError('Failed to send your wish. Please try again.');
-            } finally {
-                wishSubmit.disabled = false;
-                wishSubmit.textContent = 'Send Wish ♡';
-            }
-        });
-
-        // ==================== CONFIRMATION POPUP ==================== 
-        function showConfirmation() {
-            console.log('🎉 Showing confirmation popup');
-            confirmationPopup.classList.add('show');
-            setTimeout(() => {
-                confirmationPopup.classList.remove('show');
-                console.log('✨ Confirmation popup closed automatically');
-            }, 4000);
-        }
-
-        // ==================== ERROR POPUP ==================== 
-        function showError(message) {
-            console.log('⚠️ Showing error popup:', message);
-            errorMessage.textContent = message;
-            errorPopup.classList.add('show');
-        }
-
-        errorBtn.addEventListener('click', () => {
-            errorPopup.classList.remove('show');
-            console.log('🔄 Error dismissed');
-        });
-
-        // Close error on background click
-        errorPopup.addEventListener('click', (e) => {
-            if (e.target === errorPopup) {
-                errorPopup.classList.remove('show');
-            }
-        });
-
-        // ==================== SCROLL ANIMATIONS ==================== 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
+            // Lower volume on surprise
+            const surpriseOverlay = document.getElementById('surpriseOverlay');
+            const observerSurprise = new MutationObserver(() => {
+                if (surpriseOverlay.classList.contains('show')) {
+                    backgroundMusic.volume = 0.3;
+                } else {
+                    backgroundMusic.volume = 1;
                 }
             });
-        }, observerOptions);
+            observerSurprise.observe(surpriseOverlay, { attributes: true });
 
-        document.querySelectorAll('.scroll-fade').forEach(el => {
-            observer.observe(el);
-        });
+            // ==================== WISH POPUP ==================== 
+            const wishOverlay = document.getElementById('wishOverlay');
+            const wishInput = document.getElementById('wishInput');
+            const wishSubmit = document.getElementById('wishSubmit');
+            const wishCancel = document.getElementById('wishCancel');
+            const surpriseBtn = document.getElementById('surpriseBtn');
+            const confirmationPopup = document.getElementById('confirmationPopup');
+            const errorPopup = document.getElementById('errorPopup');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorBtn = document.getElementById('errorBtn');
 
-        // ==================== HIDDEN SECRET MESSAGE ==================== 
-        const secretMessages = [
-            "I don't say this enough, but I'm really lucky to have you.",
-            "You make every day feel like an adventure.",
-            "Thank you for being patient with me. You're amazing.",
-            "I fall in love with you a little more every day.",
-            "You're my favorite person to do absolutely nothing with.",
-            "I love the way you make me feel.",
-            "You're not just my love, you're my best friend."
-        ];
+            // ==================== SINGLE CLICK TO OPEN WISH POPUP ==================== 
+            surpriseBtn.addEventListener('click', () => {
+                console.log('✨ Make a Wish button clicked - Opening popup');
+                wishOverlay.classList.add('show');
+            });
 
-        let secretRevealed = false;
-        let scrolledToBottom = false;
+            wishCancel.addEventListener('click', () => {
+                wishOverlay.classList.remove('show');
+                wishInput.value = '';
+            });
 
-        window.addEventListener('scroll', () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
-                if (!scrolledToBottom) {
-                    scrolledToBottom = true;
-                    revealSecret();
+            wishOverlay.addEventListener('click', (e) => {
+                if (e.target === wishOverlay) {
+                    wishOverlay.classList.remove('show');
+                    wishInput.value = '';
+                }
+            });
+
+            // ==================== SEND WISH VIA EMAILJS ==================== 
+            wishSubmit.addEventListener('click', async () => {
+                const message = wishInput.value.trim();
+
+                if (!message) {
+                    showError('Please write your wish first!');
+                    console.warn('⚠️ Wish input is empty');
+                    return;
+                }
+
+                // Disable submit button while sending
+                wishSubmit.disabled = true;
+                wishSubmit.textContent = 'Sending...';
+
+                try {
+                    console.log('📤 Sending wish via EmailJS...');
+                    console.log('Service ID:', CONFIG.emailjsServiceId);
+                    console.log('Template ID:', CONFIG.emailjsTemplateId);
+                    console.log('Message:', message);
+
+                    const response = await emailjs.send(
+                        CONFIG.emailjsServiceId,
+                        CONFIG.emailjsTemplateId,
+                        {
+                            message: message,
+                            from_name: CONFIG.girlfriendName,
+                            to_email: 'user@example.com'
+                        }
+                    );
+
+                    console.log('✅ Success! Email sent successfully');
+                    console.log('Response:', response);
+
+                    showConfirmation();
+                    wishOverlay.classList.remove('show');
+                    wishInput.value = '';
+
+                } catch (error) {
+                    console.error('❌ Error sending wish:', error);
+                    showError('Failed to send your wish. Please try again.');
+                } finally {
+                    wishSubmit.disabled = false;
+                    wishSubmit.textContent = 'Send Wish ♡';
+                }
+            });
+
+            // ==================== CONFIRMATION POPUP ==================== 
+            function showConfirmation() {
+                console.log('🎉 Showing confirmation popup');
+                confirmationPopup.classList.add('show');
+                setTimeout(() => {
+                    confirmationPopup.classList.remove('show');
+                    console.log('✨ Confirmation popup closed automatically');
+                }, 4000);
+            }
+
+            // ==================== ERROR POPUP ==================== 
+            function showError(message) {
+                console.log('⚠️ Showing error popup:', message);
+                errorMessage.textContent = message;
+                errorPopup.classList.add('show');
+            }
+
+            errorBtn.addEventListener('click', () => {
+                errorPopup.classList.remove('show');
+                console.log('🔄 Error dismissed');
+            });
+
+            // Close error on background click
+            errorPopup.addEventListener('click', (e) => {
+                if (e.target === errorPopup) {
+                    errorPopup.classList.remove('show');
+                }
+            });
+
+            // ==================== SCROLL ANIMATIONS ==================== 
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-fade').forEach(el => {
+                observer.observe(el);
+            });
+
+            // ==================== HIDDEN SECRET MESSAGE ==================== 
+            const secretMessages = [
+                "I don't say this enough, but I'm really lucky to have you.",
+                "You make every day feel like an adventure.",
+                "Thank you for being patient with me. You're amazing.",
+                "I fall in love with you a little more every day.",
+                "You're my favorite person to do absolutely nothing with.",
+                "I love the way you make me feel.",
+                "You're not just my love, you're my best friend."
+            ];
+
+            let secretRevealed = false;
+            let scrolledToBottom = false;
+
+            window.addEventListener('scroll', () => {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+                    if (!scrolledToBottom) {
+                        scrolledToBottom = true;
+                        revealSecret();
+                    }
+                }
+            });
+
+            function revealSecret() {
+                if (!secretRevealed) {
+                    secretRevealed = true;
+                    const secretMessage = document.getElementById('secretMessage');
+                    const randomSecret = secretMessages[Math.floor(Math.random() * secretMessages.length)];
+                    secretMessage.textContent = `"${randomSecret}"`;
+                    secretMessage.classList.add('show');
+                    console.log('🤫 Secret message revealed:', randomSecret);
+
+                    setTimeout(() => {
+                        secretMessage.classList.remove('show');
+                    }, 5000);
                 }
             }
-        });
 
-        function revealSecret() {
-            if (!secretRevealed) {
-                secretRevealed = true;
-                const secretMessage = document.getElementById('secretMessage');
-                const randomSecret = secretMessages[Math.floor(Math.random() * secretMessages.length)];
-                secretMessage.textContent = `"${randomSecret}"`;
-                secretMessage.classList.add('show');
-                console.log('🤫 Secret message revealed:', randomSecret);
+            // ==================== RANDOM FLOATING MESSAGES ==================== 
+            const floatingMessages = [
+                "I love you ♡",
+                "You're beautiful ♡",
+                "You make me smile ♡",
+                "Forever with you ♡",
+                "You're my everything ♡"
+            ];
 
-                setTimeout(() => {
-                    secretMessage.classList.remove('show');
-                }, 5000);
-            }
-        }
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const msg = document.createElement('div');
+                    msg.className = 'floating-message';
+                    msg.textContent = floatingMessages[Math.floor(Math.random() * floatingMessages.length)];
 
-        // ==================== RANDOM FLOATING MESSAGES ==================== 
-        const floatingMessages = [
-            "I love you ♡",
-            "You're beautiful ♡",
-            "You make me smile ♡",
-            "Forever with you ♡",
-            "You're my everything ♡"
-        ];
+                    const safeTop = 100;
+                    const safeBottom = window.innerHeight - 100;
+                    const randomY = Math.random() * (safeBottom - safeTop) + safeTop;
 
-        setInterval(() => {
-            if (Math.random() > 0.7) {
-                const msg = document.createElement('div');
-                msg.className = 'floating-message';
-                msg.textContent = floatingMessages[Math.floor(Math.random() * floatingMessages.length)];
+                    msg.style.left = Math.random() * window.innerWidth + 'px';
+                    msg.style.top = randomY + 'px';
+                    document.body.appendChild(msg);
 
-                const safeTop = 100;
-                const safeBottom = window.innerHeight - 100;
-                const randomY = Math.random() * (safeBottom - safeTop) + safeTop;
+                    setTimeout(() => msg.remove(), 4000);
+                }
+            }, 5000);
 
-                msg.style.left = Math.random() * window.innerWidth + 'px';
-                msg.style.top = randomY + 'px';
-                document.body.appendChild(msg);
-
-                setTimeout(() => msg.remove(), 4000);
-            }
-        }, 5000);
-
-        // Log initial setup
-        console.log('🎂 Birthday Website Loaded Successfully');
-        console.log('Configuration:', {
-            girlfriendName: CONFIG.girlfriendName,
-            emailjsServiceId: CONFIG.emailjsServiceId,
-            emailjsTemplateId: CONFIG.emailjsTemplateId,
-            typingDuration: `${fullText.length * CONFIG.typingDelay + 500}ms`
-        });
-    </script>
+            // Log initial setup
+            console.log('🎂 Birthday Website Loaded Successfully');
+            console.log('Configuration:', {
+                girlfriendName: CONFIG.girlfriendName,
+                emailjsServiceId: CONFIG.emailjsServiceId,
+                emailjsTemplateId: CONFIG.emailjsTemplateId,
+                typingDuration: `${fullText.length * CONFIG.typingDelay + 500}ms`
+            });
+        </script>
 </body>
+
 </html>
