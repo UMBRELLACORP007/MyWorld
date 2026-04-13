@@ -1897,63 +1897,63 @@
                     <div class="reason-card" data-reason="The way you care for people even when it costs you ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">II</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Press me hehe ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card" data-reason="Your beautiful mind that questions and grows every day ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">III</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Poke me ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card" data-reason="The way you make me feel safe just by being with me ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">IV</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Try me out ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card" data-reason="Your loyalty means more than you'll ever know ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">V</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Touch me gently ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card" data-reason="The way you listen makes me feel like I actually matter ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">VI</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Come here ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card" data-reason="Your strength through every challenge inspires me ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">VII</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Give me a click ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card" data-reason="The little things you do that show you understand me ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">VIII</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Hit me softly ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card" data-reason="Your authenticity in a world of fakeness ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">IX</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Open me up ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
                     <div class="reason-card last-card" data-reason="And a thousand more reasons I can't count ♡">
                         <div class="reason-card-front">
                             <div class="reason-card-number">X</div>
-                            <div class="reason-card-hint">Click me ♡</div>
+                            <div class="reason-card-hint">Don’t ignore me ♡</div>
                         </div>
                         <div class="reason-card-back"></div>
                     </div>
@@ -2191,23 +2191,21 @@
 
             // ==================== SHOOTING STARS ==================== 
             function createShootingStar() {
-                if (Math.random() > 0.98) {
-                    const star = document.createElement('div');
-                    star.className = 'shooting-star';
-                    star.style.left = Math.random() * window.innerWidth + 'px';
-                    star.style.top = Math.random() * window.innerHeight + 'px';
-                    document.body.appendChild(star);
+                const star = document.createElement('div');
+                star.className = 'shooting-star';
+                star.style.left = Math.random() * window.innerWidth + 'px';
+                star.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(star);
 
-                    setTimeout(() => {
-                        star.classList.add('animate');
-                    }, 10);
+                setTimeout(() => {
+                    star.classList.add('animate');
+                }, 10);
 
-                    setTimeout(() => {
-                        star.remove();
-                    }, 2000);
-                }
+                setTimeout(() => {
+                    star.remove();
+                }, 2000);
             }
-            setInterval(createShootingStar, 200);
+            setInterval(createShootingStar, 3000);
 
             // ==================== TYPING EFFECT WITH PROPER TIMING ==================== 
             const typingContent = document.getElementById('typingContent');
@@ -2664,10 +2662,15 @@
             // ==================== RANDOM FLOATING MESSAGES ==================== 
             const floatingMessages = [
                 "I love you ♡",
-                "You're beautiful ♡",
-                "You make me smile ♡",
+                "You're soo beautiful ♡",
+                "Life feels better with you ♡",
                 "Forever with you ♡",
-                "You're my everything ♡"
+                "You're my everything ♡",
+                "You’re my safe place ♡",
+                "You’re my sweetest dream ♡",
+                "I’m so lucky to have you ♡",
+                "I’m yours, always ♡",
+                "You’re my little piece of heaven ♡"
             ];
 
             setInterval(() => {
@@ -2686,7 +2689,7 @@
 
                     setTimeout(() => msg.remove(), 4000);
                 }
-            }, 5000);
+            }, 4000);
 
             // Log initial setup
             console.log('🎂 Birthday Website Loaded Successfully');
